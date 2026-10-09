@@ -13,6 +13,19 @@ Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication 
 - Base de données SQLite locale (`database/database.sqlite`, non versionnée).
 - Le dépôt est hébergé sur GitHub : [TOGOMORI001/laravell-app](https://github.com/TOGOMORI001/laravell-app).
 
+## Routes disponibles
+
+| Méthode | URI | Réponse |
+| --- | --- | --- |
+| GET | `/` | Vue `welcome` (page d'accueil Laravel) |
+| GET | `/bonjour` | Message de bienvenue en texte |
+| GET | `/bonjour-court` | Même type de réponse avec une fonction fléchée |
+| GET | `/bienvenue` | Vue `bienvenue` avec le nom, le groupe et le cours |
+| GET | `/version` | Versions de Laravel et de PHP |
+| GET | `/heure` | Vue `heure` avec l'heure et la date |
+| GET | `/a-propos` | Vue `a-propos` avec le nom de l'auteur et le groupe |
+| GET | `/welcome` | Alias conservé de la page d'accueil Laravel |
+
 ## Prérequis
 
 - PHP 8.3 ou plus, avec les extensions `curl`, `fileinfo`, `mbstring`, `openssl`, `pdo_sqlite`, `sqlite3` et `zip`.
