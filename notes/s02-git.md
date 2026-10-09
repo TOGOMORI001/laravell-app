@@ -21,3 +21,9 @@ Le fichier `.env` contient la configuration propre à la machine, dont la clé d
 ## 5. Git Credential Manager
 
 Git Credential Manager conserve le jeton GitHub dans le gestionnaire d'identifiants sécurisé de Windows pour authentifier les prochains push. Sur un ordinateur personnel, on le garde ; sur un poste partagé de l'université, on le supprime en quittant afin que l'utilisateur suivant ne puisse pas pousser sur le compte.
+
+## 6. Historique depuis `lab-01`
+
+- Nombre de commits depuis `lab-01` avant ce commit de notes : 5.
+- Fichiers modifiés depuis `lab-01` : 11.
+- `git tag -n` affiche : `lab-01` suivi du message `lab-01`.
