@@ -11,6 +11,7 @@
             <div class="rounded-xl bg-white p-8 shadow-lg ring-1 ring-slate-200">
                 <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">Heure actuelle</p>
                 <h1 class="mt-4 text-4xl font-bold text-slate-900">{{ $heure }}</h1>
+                <p class="mt-2 text-lg text-slate-700">{{ $date }}</p>
                 <p class="mt-4 text-sm text-slate-600">Cette page est accessible sur <code class="rounded bg-slate-100 px-2 py-1 text-xs">/heure</code>.</p>
             </div>
         </main>
