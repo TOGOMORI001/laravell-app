@@ -1,9 +1,12 @@
 <?php
 
-test('the home route renders the welcome page', function () {
+test('the home route renders the home page with the shared layout', function () {
     $this->get('/')
         ->assertOk()
-        ->assertViewIs('welcome');
+        ->assertViewIs('home')
+        ->assertSeeText('Bienvenue sur Mini-CMS')
+        ->assertSee('<title>Accueil - Mini-CMS</title>', false)
+        ->assertSee('href="http://localhost:8000/a-propos"', false);
 });
 
 test('the removed exercise routes return not found', function () {
@@ -18,7 +21,9 @@ test('the about page displays the student and group', function () {
         ->assertViewIs('a-propos')
         ->assertSeeText('Mouhib Laifi')
         ->assertSeeText('MDW32')
+        ->assertSee('<title>À propos - Mini-CMS</title>', false)
         ->assertSee('href="http://localhost:8000"', false)
+        ->assertSee('href="http://localhost:8000/a-propos"', false)
         ->assertDontSee('/bienvenue')
         ->assertSee('href="/heure"', false);
 });
