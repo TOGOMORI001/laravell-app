@@ -25,7 +25,7 @@ test('the about page displays the student and group', function () {
         ->assertSee('href="http://localhost:8000"', false)
         ->assertSee('href="http://localhost:8000/a-propos"', false)
         ->assertDontSee('/bienvenue')
-        ->assertSee('href="/heure"', false);
+        ->assertSee('href="http://localhost:8000/heure"', false);
 });
 
 test('the posts page lists the static articles and shared navigation', function () {
@@ -82,5 +82,7 @@ test('the time page displays the current time and date', function () {
         ->assertOk()
         ->assertViewIs('heure')
         ->assertSeeText('15:00')
-        ->assertSeeText('09/10/2026');
+        ->assertSeeText('09/10/2026')
+        ->assertSee('<title>Heure du serveur - Mini-CMS</title>', false)
+        ->assertSee('href="http://localhost:8000/heure"', false);
 });
