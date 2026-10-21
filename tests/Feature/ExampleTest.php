@@ -28,6 +28,17 @@ test('the about page displays the student and group', function () {
         ->assertSee('href="/heure"', false);
 });
 
+test('the posts page lists the static articles and shared navigation', function () {
+    $this->get('/posts')
+        ->assertOk()
+        ->assertViewIs('posts.index')
+        ->assertSeeText('Tous les articles')
+        ->assertSeeText('Découvrir Laravel 13')
+        ->assertSeeText('Routes et contrôleurs')
+        ->assertSeeText('Premiers pas avec Blade')
+        ->assertSee('href="http://localhost:8000/posts"', false);
+});
+
 test('the time page displays the current time and date', function () {
     $this->travelTo(now()->setDate(2026, 10, 9)->setTime(15, 0));
 
