@@ -6,25 +6,23 @@ Auteur : Mouhib Laifi, groupe MDW32.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, puis un tag par session).
 
-## État actuel
+## État actuel (tag lab-02)
 
-- Routes en closures : `/`, `/bonjour`, `/bonjour-court`, `/bienvenue`, `/version`, `/heure` et `/a-propos`.
-- Vues Blade : `welcome`, `bienvenue`, `heure` et `a-propos`.
+- Routes nommées, toutes servies par des contrôleurs : `PageController` (pages) et `PostController` (articles).
+- Articles stockés dans un tableau PHP, sans base de données pour l'instant.
+- Layout Blade `<x-layout>` avec Tailwind chargé par Vite.
 - Base de données SQLite locale (`database/database.sqlite`, non versionnée).
-- Le dépôt est hébergé sur GitHub : [TOGOMORI001/laravell-app](https://github.com/TOGOMORI001/laravell-app).
 
 ## Routes disponibles
 
-| Méthode | URI | Réponse |
-| --- | --- | --- |
-| GET | `/` | Vue `welcome` (page d'accueil Laravel) |
-| GET | `/bonjour` | Message de bienvenue en texte |
-| GET | `/bonjour-court` | Même type de réponse avec une fonction fléchée |
-| GET | `/bienvenue` | Vue `bienvenue` avec le nom, le groupe et le cours |
-| GET | `/version` | Versions de Laravel et de PHP |
-| GET | `/heure` | Vue `heure` avec l'heure et la date |
-| GET | `/a-propos` | Vue `a-propos` avec le nom de l'auteur et le groupe |
-| GET | `/welcome` | Alias conservé de la page d'accueil Laravel |
+| Méthode | URI | Nom | Action |
+|---|---|---|---|
+| GET | `/` | `home` | `PageController@home` |
+| GET | `/a-propos` | `about` | `PageController@about` |
+| GET | `/heure` | `time` | `PageController@time` |
+| GET | `/posts` | `posts.index` | `PostController@index` |
+| GET | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
+| GET | `/posts/{slug}` | `posts.show` | `PostController@show` |
 
 ## Prérequis
 
@@ -71,10 +69,6 @@ Ouvrir ensuite <http://localhost:8000>. L'adresse de l'application est différen
 
 ![Page d'accueil de Mini-CMS](screenshots/s01-accueil.png)
 
-### Page Bienvenue
-
-![Page Bienvenue](screenshots/s01-bienvenue.png)
-
 ### Liste des routes
 
 ![Routes définies par l'application avec php artisan route:list --except-vendor](screenshots/s01-route-list.png)
@@ -82,5 +76,17 @@ Ouvrir ensuite <http://localhost:8000>. L'adresse de l'application est différen
 ### Page À propos
 
 ![Page À propos](screenshots/s02-a-propos.png)
+
+### Accueil avec le layout
+
+![Page d'accueil avec le layout](screenshots/s03-accueil.png)
+
+### Liste des articles
+
+![Liste des articles](screenshots/s03-articles.png)
+
+### Détail d'un article
+
+![Détail d'un article](screenshots/s03-article.png)
 
 La commande `php artisan migrate` crée les tables internes de Laravel, notamment celles utilisées pour les sessions et le cache. Les migrations sont étudiées en session 05.
