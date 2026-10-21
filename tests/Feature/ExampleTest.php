@@ -18,7 +18,8 @@ test('the about page displays the student and group', function () {
         ->assertViewIs('a-propos')
         ->assertSeeText('Mouhib Laifi')
         ->assertSeeText('MDW32')
-        ->assertSee('href="/bienvenue"', false)
+        ->assertSee('href="http://localhost:8000"', false)
+        ->assertDontSee('/bienvenue')
         ->assertSee('href="/heure"', false);
 });
 
