@@ -5,8 +5,11 @@ test('the home route renders the home page with the shared layout', function () 
         ->assertOk()
         ->assertViewIs('home')
         ->assertSeeText('Bienvenue sur Mini-CMS')
+        ->assertSeeText('Sprint en cours')
+        ->assertSeeText('Les composants Blade évitent de recopier le même code HTML')
         ->assertSee('<title>Accueil - Mini-CMS</title>', false)
-        ->assertSee('href="http://localhost:8000/a-propos"', false);
+        ->assertSee('href="http://localhost:8000/posts"', false)
+        ->assertSee('aria-current="page"', false);
 });
 
 test('the removed exercise routes return not found', function () {
@@ -60,15 +63,17 @@ test('a known post slug displays the article and a link back to the list', funct
         ->assertOk()
         ->assertViewIs('posts.show')
         ->assertSeeText('Comprendre le routage Laravel')
+        ->assertSeeText('Équipe Mini-CMS - 03/10/2026')
         ->assertSeeText('Une route associe une URL à une action.')
         ->assertSeeText('Les paramètres, comme le slug d’un article')
+        ->assertSeeText('Retour aux articles')
         ->assertSee('aria-current="page"', false)
         ->assertSee('bg-indigo-600 text-white', false)
         ->assertSee('href="http://localhost:8000/posts"', false);
 });
 
 test('an unknown post slug returns not found', function () {
-    $this->get('/posts/article-inconnu')->assertNotFound();
+    $this->get('/posts/inconnu')->assertNotFound();
 });
 
 test('the article archive filters posts by year', function () {
