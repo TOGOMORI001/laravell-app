@@ -33,18 +33,20 @@ test('the posts page lists the static articles and shared navigation', function 
         ->assertOk()
         ->assertViewIs('posts.index')
         ->assertSeeText('Tous les articles')
-        ->assertSeeText('Découvrir Laravel 13')
-        ->assertSeeText('Routes et contrôleurs')
-        ->assertSeeText('Premiers pas avec Blade')
+        ->assertSeeText('Bienvenue sur Mini-CMS')
+        ->assertSeeText('Comprendre le routage Laravel')
+        ->assertSeeText('Les composants Blade')
+        ->assertSeeText('Préparer la suite du projet')
         ->assertSee('href="http://localhost:8000/posts"', false);
 });
 
 test('a known post slug displays the article and a link back to the list', function () {
-    $this->get('/posts/routes-et-controleurs')
+    $this->get('/posts/comprendre-le-routage')
         ->assertOk()
         ->assertViewIs('posts.show')
-        ->assertSeeText('Routes et contrôleurs')
-        ->assertSeeText('Une route associe une URL à une méthode de contrôleur.')
+        ->assertSeeText('Comprendre le routage Laravel')
+        ->assertSeeText('Une route associe une URL à une action.')
+        ->assertSeeText('Les paramètres, comme le slug d’un article')
         ->assertSee('href="http://localhost:8000/posts"', false);
 });
 
@@ -53,21 +55,22 @@ test('an unknown post slug returns not found', function () {
 });
 
 test('the article archive filters posts by year', function () {
-    $this->get('/posts/archive/2025')
+    $this->get('/posts/archive/2026')
         ->assertOk()
         ->assertViewIs('posts.index')
-        ->assertSeeText('Articles de 2025')
-        ->assertSeeText('Premiers pas avec Blade')
-        ->assertDontSeeText('Routes et contrôleurs');
+        ->assertSeeText('Articles de 2026')
+        ->assertSeeText('Bienvenue sur Mini-CMS')
+        ->assertSeeText('Préparer la suite du projet');
 });
 
 test('a numeric archive year without posts renders an empty archive', function () {
     $this->get('/posts/archive/2030')
         ->assertOk()
         ->assertSeeText('Articles de 2030')
-        ->assertDontSeeText('Découvrir Laravel 13')
-        ->assertDontSeeText('Routes et contrôleurs')
-        ->assertDontSeeText('Premiers pas avec Blade');
+        ->assertDontSeeText('Bienvenue sur Mini-CMS')
+        ->assertDontSeeText('Comprendre le routage Laravel')
+        ->assertDontSeeText('Les composants Blade')
+        ->assertDontSeeText('Préparer la suite du projet');
 });
 
 test('invalid archive years and post slugs return not found', function () {
