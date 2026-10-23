@@ -29,6 +29,8 @@ test('the about page displays the student and group', function () {
         ->assertSee('role="status"', false)
         ->assertSee('bg-blue-50', false)
         ->assertSee('bg-amber-50', false)
+        ->assertSee('aria-current="page"', false)
+        ->assertSee('bg-indigo-600 text-white', false)
         ->assertSee('href="http://localhost:8000"', false)
         ->assertSee('href="http://localhost:8000/a-propos"', false)
         ->assertDontSee('/bienvenue');
@@ -53,6 +55,8 @@ test('a known post slug displays the article and a link back to the list', funct
         ->assertSeeText('Comprendre le routage Laravel')
         ->assertSeeText('Une route associe une URL à une action.')
         ->assertSeeText('Les paramètres, comme le slug d’un article')
+        ->assertSee('aria-current="page"', false)
+        ->assertSee('bg-indigo-600 text-white', false)
         ->assertSee('href="http://localhost:8000/posts"', false);
 });
 
@@ -93,5 +97,7 @@ test('the time page displays the current time and date', function () {
         ->assertSeeText('15:00')
         ->assertSeeText('09/10/2026')
         ->assertSee('<title>Heure du serveur - Mini-CMS</title>', false)
-        ->assertSee('href="http://localhost:8000/heure"', false);
+        ->assertSee('href="http://localhost:8000/heure"', false)
+        ->assertSee('aria-current="page"', false)
+        ->assertSee('bg-indigo-600 text-white', false);
 });
