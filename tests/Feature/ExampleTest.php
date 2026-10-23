@@ -22,10 +22,16 @@ test('the about page displays the student and group', function () {
         ->assertSeeText('Mouhib Laifi')
         ->assertSeeText('MDW32')
         ->assertSee('<title>À propos - Mini-CMS</title>', false)
+        ->assertSeeText('Projet pédagogique')
+        ->assertSeeText('Ce site évolue à chaque session')
+        ->assertSeeText('Données provisoires')
+        ->assertSeeText("Les articles affichés viennent d'un tableau PHP")
+        ->assertSee('role="status"', false)
+        ->assertSee('bg-blue-50', false)
+        ->assertSee('bg-amber-50', false)
         ->assertSee('href="http://localhost:8000"', false)
         ->assertSee('href="http://localhost:8000/a-propos"', false)
-        ->assertDontSee('/bienvenue')
-        ->assertSee('href="http://localhost:8000/heure"', false);
+        ->assertDontSee('/bienvenue');
 });
 
 test('the posts page lists the static articles and shared navigation', function () {
