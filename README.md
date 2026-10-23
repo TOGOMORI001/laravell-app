@@ -6,12 +6,11 @@ Auteur : Mouhib Laifi, groupe MDW32.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, puis un tag par session).
 
-## État actuel (tag lab-02)
+## État actuel (tag lab-02b)
 
-- Routes nommées, toutes servies par des contrôleurs : `PageController` (pages) et `PostController` (articles).
-- Articles stockés dans un tableau PHP, sans base de données pour l'instant.
-- Layout Blade `<x-layout>` avec Tailwind chargé par Vite.
-- Base de données SQLite locale (`database/database.sqlite`, non versionnée).
+- Pages construites avec des composants Blade anonymes : `x-navbar`, `x-nav-link`, `x-post-card`, `x-alert`, `x-page-header`.
+- Lien actif dans la navigation avec `request()->routeIs()`.
+- Articles toujours stockés dans un tableau PHP, sans base de données pour l'instant.
 
 ## Routes disponibles
 
@@ -88,5 +87,9 @@ Ouvrir ensuite <http://localhost:8000>. L'adresse de l'application est différen
 ### Détail d'un article
 
 ![Détail d'un article](screenshots/s03-article.png)
+
+### Session 04
+
+![Liste des articles](screenshots/s04-articles.png)
 
 La commande `php artisan migrate` crée les tables internes de Laravel, notamment celles utilisées pour les sessions et le cache. Les migrations sont étudiées en session 05.
