@@ -37,7 +37,9 @@ test('the about page displays the student and group', function () {
 });
 
 test('the posts page lists the static articles and shared navigation', function () {
-    $this->get('/posts')
+    $response = $this->get('/posts');
+
+    $response
         ->assertOk()
         ->assertViewIs('posts.index')
         ->assertSeeText('Tous les articles')
@@ -45,7 +47,12 @@ test('the posts page lists the static articles and shared navigation', function 
         ->assertSeeText('Comprendre le routage Laravel')
         ->assertSeeText('Les composants Blade')
         ->assertSeeText('Préparer la suite du projet')
+        ->assertSeeText("Présentation du projet fil rouge de l'atelier")
+        ->assertSeeText('Équipe Mini-CMS')
+        ->assertSeeText('Archive 2026')
         ->assertSee('href="http://localhost:8000/posts"', false);
+
+    expect(substr_count($response->getContent(), 'À la une'))->toBe(1);
 });
 
 test('a known post slug displays the article and a link back to the list', function () {
@@ -74,9 +81,12 @@ test('the article archive filters posts by year', function () {
 });
 
 test('a numeric archive year without posts renders an empty archive', function () {
-    $this->get('/posts/archive/2030')
+    $this->get('/posts/archive/2025')
         ->assertOk()
-        ->assertSeeText('Articles de 2030')
+        ->assertSeeText('Articles de 2025')
+        ->assertSeeText('Aucun article')
+        ->assertSeeText("Il n'y a pas encore d'article publié.")
+        ->assertSee('border-amber-500', false)
         ->assertDontSeeText('Bienvenue sur Mini-CMS')
         ->assertDontSeeText('Comprendre le routage Laravel')
         ->assertDontSeeText('Les composants Blade')
