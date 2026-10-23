@@ -111,6 +111,38 @@ it('rejects duplicate and invalid slugs', function () {
         ->assertSessionHasErrors('slug');
 });
 
+it('shows only the three most recently published posts on the home page', function () {
+    foreach (range(1, 4) as $number) {
+        Post::create([
+            'title' => "Article publié {$number}",
+            'slug' => "article-publie-{$number}",
+            'body' => "Contenu publié {$number}, assez long pour être affiché.",
+            'is_published' => true,
+            'published_at' => now()->subDays(5 - $number),
+        ]);
+    }
+
+    Post::create([
+        'title' => 'Article brouillon',
+        'slug' => 'article-brouillon',
+        'body' => 'Un brouillon reste caché sur la page d’accueil.',
+        'is_published' => false,
+    ]);
+
+    $response = $this->get(route('home'));
+    $content = $response->getContent();
+
+    $response
+        ->assertOk()
+        ->assertSee('Article publié 4')
+        ->assertSee('Article publié 3')
+        ->assertSee('Article publié 2')
+        ->assertDontSee('Article publié 1')
+        ->assertDontSee('Article brouillon');
+
+    expect(substr_count($content, "Lire l'article"))->toBe(3);
+});
+
 test('example', function () {
     $response = $this->get('/');
 
