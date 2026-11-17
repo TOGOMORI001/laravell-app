@@ -62,8 +62,8 @@ it('returns validation errors and preserves invalid form input', function () {
     $response
         ->assertOk()
         ->assertSee('Titre saisi')
-        ->assertSee('The slug field is required.')
-        ->assertSee('The body field is required.');
+        ->assertSee('Le champ slug est obligatoire.')
+        ->assertSee('Le champ contenu est obligatoire.');
 });
 
 it('creates a post and redirects to its detail page', function () {
