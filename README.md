@@ -6,12 +6,15 @@ Auteur : Mouhib Laifi, groupe MDW32.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, puis un tag par session).
 
-## État actuel (tag lab-03b)
+## État actuel (tag lab-04)
 
 - CRUD complet des articles : liste, détail, création, modification, suppression avec confirmation.
 - Colonne `excerpt` ajoutée par une nouvelle migration.
 - Scope `published` utilisé sur l'accueil et l'archive.
-- Tests Pest des lectures (`PostPagesTest`) et des écritures (`PostWriteTest`) : `php artisan test`.
+- Relations articles/auteurs, catégories et tags ; données de démonstration reproductibles avec `php artisan migrate:fresh --seed`.
+- Chargement anticipé des relations et prévention du lazy loading pour éviter les requêtes N+1.
+- Articles publiés de la même catégorie affichés sur la page de détail.
+- Tests Pest des lectures, écritures et relations : `php artisan test`.
 
 ## Routes disponibles
 
@@ -49,7 +52,7 @@ npm install
 cp .env.example .env
 php artisan key:generate
 touch database/database.sqlite
-php artisan migrate
+php artisan migrate --seed
 composer run dev
 ```
 
@@ -63,11 +66,13 @@ npm install
 copy .env.example .env
 php artisan key:generate
 New-Item database\database.sqlite -ItemType File
-php artisan migrate
+php artisan migrate --seed
 composer run dev
 ```
 
 Ouvrir ensuite <http://localhost:8000>. L'adresse de l'application est différente de celle de Vite, qui utilise le port 5173.
+
+> Attention : `php artisan migrate:fresh --seed` supprime toutes les tables et leurs données avant de les recréer. Utilisez-le uniquement pour réinitialiser une base de développement.
 
 ## Captures d'écran
 
@@ -110,3 +115,9 @@ Ouvrir ensuite <http://localhost:8000>. L'adresse de l'application est différen
 ![Formulaire de modification prérempli](screenshots/s06-modification.png)
 
 ![Confirmation de suppression](screenshots/s06-suppression.png)
+
+### Session 07
+
+![Liste des articles avec catégories, auteurs et tags](screenshots/s07-liste-relations.png)
+
+![Détail d'un article avec tags et articles de la même catégorie](screenshots/s07-detail-tags.png)
