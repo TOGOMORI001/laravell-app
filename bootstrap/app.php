@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureSiteIsWritable;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
@@ -28,12 +29,17 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $exception, Request $request) {
             $previous = $exception->getPrevious();
 
-            if (
-                $request->is('api/*')
-                || $request->expectsJson()
-                || ! $previous instanceof ModelNotFoundException
-                || $previous->getModel() !== Post::class
-            ) {
+            if ($request->is('api/*') || $request->expectsJson() || ! $previous instanceof ModelNotFoundException) {
+                return null;
+            }
+
+            if ($previous->getModel() === Category::class) {
+                return response()->view('errors.category-introuvable', [
+                    'categories' => Category::orderBy('name')->get(),
+                ], 404);
+            }
+
+            if ($previous->getModel() !== Post::class) {
                 return null;
             }
 
