@@ -6,15 +6,12 @@ Auteur : Mouhib Laifi, groupe MDW32.
 
 Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication : pages publiques, back-office authentifié, API JSON et tests Pest. Chaque session se termine par un tag Git (`lab-01`, puis un tag par session).
 
-## État actuel (tag lab-04)
+## État actuel (tag lab-04b)
 
-- CRUD complet des articles : liste, détail, création, modification, suppression avec confirmation.
-- Colonne `excerpt` ajoutée par une nouvelle migration.
-- Scope `published` utilisé sur l'accueil et l'archive.
-- Relations articles/auteurs, catégories et tags ; données de démonstration reproductibles avec `php artisan migrate:fresh --seed`.
-- Chargement anticipé des relations et prévention du lazy loading pour éviter les requêtes N+1.
-- Articles publiés de la même catégorie affichés sur la page de détail.
-- Tests Pest des lectures, écritures et relations : `php artisan test`.
+- Formulaires d'article : catégorie (liste déroulante) et tags (cases à cocher, synchronisés avec `sync()`).
+- Pages publiques par catégorie et par tag, liées par slug (`{category:slug}`, `{tag:slug}`).
+- Accueil : catégories et tags populaires comptés avec `withCount`, articles publiés seulement.
+- Tests Pest : `PostPagesTest`, `PostWriteTest`, `PostRelationsTest` et `PostTaxonomyTest`.
 
 ## Routes disponibles
 
@@ -25,6 +22,8 @@ Mini-CMS évoluera au fil du semestre vers une petite plateforme de publication 
 | GET | `/heure` | `time` | `PageController@time` |
 | GET | `/posts` | `posts.index` | `PostController@index` |
 | GET | `/posts/archive/{year}` | `posts.archive` | `PostController@archive` |
+| GET | `/posts/categorie/{category:slug}` | `posts.category` | `PostController@byCategory` |
+| GET | `/posts/tag/{tag:slug}` | `posts.tag` | `PostController@byTag` |
 | GET | `/posts/create` | `posts.create` | `PostController@create` |
 | POST | `/posts` | `posts.store` | `PostController@store` |
 | GET | `/posts/{post}` | `posts.show` | `PostController@show` |
@@ -121,3 +120,9 @@ Ouvrir ensuite <http://localhost:8000>. L'adresse de l'application est différen
 ![Liste des articles avec catégories, auteurs et tags](screenshots/s07-liste-relations.png)
 
 ![Détail d'un article avec tags et articles de la même catégorie](screenshots/s07-detail-tags.png)
+
+### Session 08
+
+![Formulaire de modification avec la catégorie et les tags](screenshots/s08-formulaire-relations.png)
+
+![Page des articles d'une catégorie](screenshots/s08-page-categorie.png)
