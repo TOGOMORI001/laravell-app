@@ -18,7 +18,9 @@
     @if ($post->tags->isNotEmpty())
         <ul class="flex flex-wrap gap-2" aria-label="Tags de l'article">
             @foreach ($post->tags as $tag)
-                <li class="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">{{ $tag->name }}</li>
+                <li class="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                    <a href="{{ route('posts.tag', $tag) }}" class="hover:underline">{{ $tag->name }}</a>
+                </li>
             @endforeach
         </ul>
     @endif
